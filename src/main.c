@@ -245,9 +245,9 @@ void range_finder_init(){
     PORTD &= ~(1 << PORTD6); //Set PD6 (OC0A) output to LOW 
 
     //DEBUG
-    uart_print("range_finder_init\r\n");
-    uart_debug_binary8("DDRD", DDRD);
-    uart_debug_binary8("PORTD", PORTD);
+    //uart_print("range_finder_init\r\n");
+    //uart_debug_binary8("DDRD", DDRD);
+    //uart_debug_binary8("PORTD", PORTD);
 }
 
 /**
@@ -422,6 +422,8 @@ ISR(PCINT2_vect)
     //Global interrupt disabled automatically for the duration of ISR
     sei(); //Must re-enable global interrupts to allow for the LED blinking nested ISR (high priority in the project)
     
+    //uart_print("PCINT2_vect\r\n");
+
     if(USF_process_step == 0x03){
         //Up tick on the sig pin is detected, coounter will start with ISR for tick down
         TCNT0 = (uint8_t)0x00; //Timer/Counter Register - reset the timer count
@@ -521,7 +523,7 @@ int main(void) {
     timer1_init(); //Initializes and starts the timers
     color_toggle_init(); //Sets up initial LED toggle
     PC0_interrupt_init(); //Initializze interrupt on PD5
-    //range_finder_init(); //Sets up the ultrasonic range finder
+    range_finder_init(); //Sets up the ultrasonic range finder
 
     range_finder_get();
     

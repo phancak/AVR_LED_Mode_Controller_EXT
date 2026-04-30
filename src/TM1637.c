@@ -92,5 +92,7 @@ void tm1637_show_number(uint16_t num) {
     }
     tm1637_stop();
 
+	//uart_debug_binary16("tm1637_show_number:", 0x00);
+
 	range_finder_get(); //Starts the next USF distance mesurement, aftter display finished
 }
